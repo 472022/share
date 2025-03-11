@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>School of stock market</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="demo.css">
+  <script src="https://s3.tradingview.com/tv.js"></script>
+  
+</head>
+<body>
+  <!-- TOP NAV BAR -->
+  <header class="main-header">
+    <div class="market-indices">
+        <div class="index">
+            <span>NIFTY</span><br>
+            <span class="value">22,389.00</span>
+            <span class="change positive">+1.38%</span>
+        </div>
+        <div class="index">
+            <span>SENSEX</span><br>
+            <span class="value">73,623.49</span>
+            <span class="change positive">+1.26%</span>
+        </div>
+    </div>
+    <nav class="main-nav">
+        <ul>
+          <li><a href="#" class=><i class="fas fa-chart-line"></i> LOGO</a></li>
+
+            <li><a href="#" class=><i class="fas fa-chart-line"></i> Charts</a></li>
+            <li><a href="#"><i class="fas fa-cog"></i> Options</a></li>
+            <li><a href="#"><i class="fas fa-compass"></i> Discover</a></li>
+            <li><a href="#"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+            <li><a href="#"><i class="fas fa-briefcase"></i> Positions</a></li>
+            <li><a href="#"><i class="fas fa-folder"></i> Holdings</a></li>
+        </ul>
+    </nav>
+    <div class="user-actions">
+        <button class="btn-more"><i class="fas fa-ellipsis-h"></i> More</button>
+        <button class="btn-help"><i class="fas fa-question-circle"></i> Help</button>
+        <button class="btn-profile"><i class="fas fa-user"></i> Prathamesh...</button>
+        <button class="btn-funds"><i class="fas fa-wallet"></i> Funds</button>
+    </div>
+</header>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-container">
+    <!-- LEFT SIDEBAR (Watchlist) -->
+    <div class="left-sidebar">
+      <div class="watchlist-header">Watchlist</div>
+      <div class="watchlist-list">
+        <ul>
+          <li>
+            <span>RELIANCE</span>
+            <span class="price-change">+1.12%</span>
+          </li>
+          <li>
+            <span>TCS</span>
+            <span class="price-change">-0.54%</span>
+          </li>
+          <li>
+            <span>HDFCBANK</span>
+            <span class="price-change">+0.76%</span>
+          </li>
+          <li>
+            <span>ICICIBANK</span>
+            <span class="price-change">+1.03%</span>
+          </li>
+          <li>
+            <span>INFY</span>
+            <span class="price-change">-0.24%</span>
+          </li>
+          <li>
+            <span>BHARTIARTL</span>
+            <span class="price-change">+0.50%</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CHART AREA -->
+    <div class="chart-area">
+      <div id="tradingviewChart"></div>
+    </div>
+  </div>
+
+  <!-- TradingView Widget Script -->
+  <script>
+    // Initialize TradingView widget
+    new TradingView.widget({
+      container_id: "tradingviewChart",
+      width: "100%",
+      height: "100%",
+      symbol: "NSE:INDUSINDBK",
+      interval: "D",
+      timezone: "Asia/Kolkata",
+      theme: "light",
+      style: "1",
+      toolbar_bg: "#f1f3f6",
+      hide_side_toolbar: false,
+      allow_symbol_change: true,
+      withdateranges: true,
+      locale: "en",
+      autosize: true
+    });
+
+    // Simulating live price updates (in a real case, fetch data from API)
+    function updateLivePrice() {
+      let price = (Math.random() * (1600 - 1400) + 1400).toFixed(2); // Random price between 1400 - 1600
+      document.getElementById("livePrice").textContent = ₹${price};
+    }
+    
+    setInterval(updateLivePrice, 2000); // Update price every 2 seconds
+
+    function buyStock() {
+      let price = document.getElementById("livePrice").textContent;
+      alert(Buying at ${price});
+    }
+
+    function sellStock() {
+      let price = document.getElementById("livePrice").textContent;
+      alert(Selling at ${price});
+    }
+  </script>
+</body>
+</html>
