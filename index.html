@@ -3,10 +3,164 @@
 <head>
   <meta charset="UTF-8" />
   <title>School of stock market</title>
+  <script src="https://s3.tradingview.com/tv.js"></script>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="demo.css">
-  <script src="https://s3.tradingview.com/tv.js"></script>
-  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Basic resets */
+    * {
+      margin: 0; 
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOP NAVIGATION BAR */
+    header {
+      background-color: #fff;
+      border-bottom: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+      height: 50px;
+    }
+
+    .logo-area {
+      margin-right: 20px;
+      font-weight: bold;
+      color: #6a6a6a;
+      font-size: 16px;
+    }
+
+    .symbol-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .symbol-name {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .symbol-description {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .live-price {
+      font-size: 16px;
+      font-weight: bold;
+      color: #007700;
+    }
+
+    .buy-sell-buttons {
+      display: flex;
+      gap: 5px;
+    }
+
+    .buy-button, .sell-button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .buy-button {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .sell-button {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .buy-button:hover {
+      background-color: #218838;
+    }
+
+    .sell-button:hover {
+      background-color: #c82333;
+    }
+
+    /* MAIN CONTAINER */
+    .main-container {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* LEFT SIDEBAR (WATCHLIST) */
+    .left-sidebar {
+      width: 250px;
+      background-color: #fff;
+      border-right: 1px solid #ccc;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .watchlist-header {
+      padding: 10px 15px;
+      border-bottom: 1px solid #ccc;
+      font-weight: bold;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .watchlist-list {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .watchlist-list ul {
+      list-style: none;
+    }
+
+    .watchlist-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .watchlist-list li:hover {
+      background-color: #f7f7f7;
+    }
+
+    .watchlist-list .price-change {
+      margin-left: 10px;
+      color: #007700;
+    }
+
+    /* CHART AREA */
+    .chart-area {
+      flex: 1;
+      position: relative;
+    }
+
+    #tradingviewChart {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
 </head>
 <body>
   <!-- TOP NAV BAR -->
@@ -14,31 +168,43 @@
     <div class="market-indices">
         <div class="index">
             <span>NIFTY</span><br>
-            <span class="value">22,389.00</span>
+            <span class="value">22,389.00</span><br>
             <span class="change positive">+1.38%</span>
         </div>
         <div class="index">
             <span>SENSEX</span><br>
-            <span class="value">73,623.49</span>
+            <span class="value">73,623.49</span><br>
             <span class="change positive">+1.26%</span>
         </div>
     </div>
     <nav class="main-nav">
         <ul>
-          <li><a href="#" class=><i class="fas fa-chart-line"></i> LOGO</a></li>
-
-            <li><a href="#" class=><i class="fas fa-chart-line"></i> Charts</a></li>
-            <li><a href="#"><i class="fas fa-cog"></i> Options</a></li>
-            <li><a href="#"><i class="fas fa-compass"></i> Discover</a></li>
-            <li><a href="#"><i class="fas fa-shopping-cart"></i> Orders</a></li>
-            <li><a href="#"><i class="fas fa-briefcase"></i> Positions</a></li>
-            <li><a href="#"><i class="fas fa-folder"></i> Holdings</a></li>
+            <li><a href="#" class="active">Charts</a></li>
+            <li><a href="#"> Options</a></li>
+            <li><a href="#"> Discover</a></li>
+            <li><a href="#"> Orders</a></li>
+            <li><a href="#"> Positions</a></li>
+            <li><a href="#"> Holdings</a></li>
         </ul>
     </nav>
     <div class="user-actions">
         <button class="btn-more"><i class="fas fa-ellipsis-h"></i> More</button>
         <button class="btn-help"><i class="fas fa-question-circle"></i> Help</button>
-        <button class="btn-profile"><i class="fas fa-user"></i> Prathamesh...</button>
+        <!-- Example single danger button -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-Secondary dropdown-toggle" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fa-solid fa-user"></i>prath..                </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Log Out</a></li>
+            </ul>
+        </div>
         <button class="btn-funds"><i class="fas fa-wallet"></i> Funds</button>
     </div>
 </header>
@@ -46,43 +212,181 @@
   <!-- MAIN CONTENT -->
   <div class="main-container">
     <!-- LEFT SIDEBAR (Watchlist) -->
-    <div class="left-sidebar">
-      <div class="watchlist-header">Watchlist</div>
-      <div class="watchlist-list">
-        <ul>
-          <li>
-            <span>RELIANCE</span>
-            <span class="price-change">+1.12%</span>
-          </li>
-          <li>
-            <span>TCS</span>
-            <span class="price-change">-0.54%</span>
-          </li>
-          <li>
-            <span>HDFCBANK</span>
-            <span class="price-change">+0.76%</span>
-          </li>
-          <li>
-            <span>ICICIBANK</span>
-            <span class="price-change">+1.03%</span>
-          </li>
-          <li>
-            <span>INFY</span>
-            <span class="price-change">-0.24%</span>
-          </li>
-          <li>
-            <span>BHARTIARTL</span>
-            <span class="price-change">+0.50%</span>
-          </li>
-        </ul>
+    <aside class="watchlist">
+      <div class="watchlist-header">
+          <div class="tabs">
+              <button class="tab active">1</button>
+              <button class="tab">2</button>
+              <button class="tab">3</button>
+              <button class="tab">4</button>
+              <button class="tab add"><i class="fas fa-plus"></i></button>
+          </div>
+          <div class="watchlist-actions">
+              <span>Top 20 by market cap</span>
+              <span>25 / 100</span>
+              <button class="btn-menu"><i class="fas fa-ellipsis-v"></i></button>
+              <button class="btn-view"><i class="fas fa-list"></i></button>
+              <button class="btn-add"><i class="fas fa-plus"></i></button>
+          </div>
       </div>
-    </div>
+      <div class="watchlist-items">
+
+          <!-- Stock Item 1 -->
+          <div class="stock-item">
+              <div class="stock-info">
+                  <div class="stock-name">INDOFARM</div>
+                  <div class="stock-exchange">NSE EQ</div>
+              </div>
+              <div class="stock-price">
+                  <div class="price" id="price-INDOFARM">₹190.80</div>
+                  <div class="change negative" >-3.12 (-1.66%)</div>
+              </div>
+              <div class="hover-actions">
+                  <button class="btn btn-buy btn-sm"><i class="fa-solid fa-b"></i> </button>
+                  <button class="btn btn-sell btn-sm"><i class="fa-solid fa-s"></i>  </button>
+                  <button class="btn btn-sell btn-sm"><i class="fa-solid fa-circle-info"></i> </button>
+                  <button class="btn btn-sell btn-sm"><i class="fa-solid fa-chart-simple"></i> </button>
+
+              </div>
+          </div>
+  
+          <!-- Stock Item 2 -->
+          <div class="stock-item">
+              <div class="stock-info">
+                  <div class="stock-name">ORIENTTECH</div>
+                  <div class="stock-exchange">NSE EQ</div>
+              </div>
+              <div class="stock-price">
+                  <div class="price">₹326.75</div>
+                  <div class="change positive">+7.55 (+2.37%)</div>
+              </div>
+              <div class="hover-actions">
+                  <button class="btn btn-buy btn-sm"><i class="fa-solid fa-b"></i> </button>
+                  <button class="btn btn-sell btn-sm"><i class="fa-solid fa-s"></i></button>
+                  <button class="btn btn-sell btn-sm"><i class="fa-solid fa-circle-info"></i> </button>
+                  <button class="btn btn-sell btn-sm"><i class="fa-solid fa-chart-simple"></i> </button>
+
+
+              </div>
+          </div>
+  
+          <!-- Stock Item 3 -->
+          <div class="stock-item">
+              <div class="stock-info">
+                  <div class="stock-name">RAIN</div>
+                  <div class="stock-exchange">NSE EQ</div>
+              </div>
+              <div class="stock-price">
+                  <div class="price">₹127.70</div>
+                  <div class="change positive">+3.44 (+2.77%)</div>
+              </div>
+              <div class="hover-actions">
+                  <button class="btn btn-buy btn-sm"><i class="fa-solid fa-b"></i> </button>
+                  <button class="btn btn-sell btn-sm"><i class="fa-solid fa-s"></i></button>
+                  <button class="btn btn-sell btn-sm"><i class="fa-solid fa-circle-info"></i> </button>
+                  <button class="btn btn-sell btn-sm"><i class="fa-solid fa-chart-simple"></i> </button>
+
+
+              </div>
+          </div>
+  
+      </div>
+  
+  </aside>
+
 
     <!-- CHART AREA -->
     <div class="chart-area">
       <div id="tradingviewChart"></div>
     </div>
+    <aside class="order-panel">
+      <div class="stock-header">
+          <div class="stock-info">
+              <h2>INDOFARM</h2>
+              <div class="exchange-info">
+                  <span class="price">190.80</span>
+                  <span class="exchange">NSE</span>
+              </div>
+              <div class="price-info">
+                  <span class="price">190.35</span>
+                  <span class="exchange">BSE</span>
+              </div>
+          </div>
+      </div>
+
+      <div class="order-tabs">
+          <button class="tab active">Regular</button>
+          <button class="tab">GTT</button>
+      </div>
+
+      <div class="delivery-options">
+          <button class="option active">Delivery (Longterm)</button>
+          <button class="option">Intraday (Same day)</button>
+      </div>
+
+      <div class="order-form">
+          <div class="form-row">
+              <label>Quantity</label>
+              <div class="quantity-input">
+                  <input type="number" value="1" min="1">
+                  <button class="btn-increase"><i class="fas fa-plus"></i></button>
+              </div>
+          </div>
+
+          <div class="form-row">
+              <label>Price</label>
+              <div class="price-input">
+                  <input type="text" value="Market" readonly>
+                  <i class="fas fa-lock"></i>
+              </div>
+          </div>
+
+          <div class="form-row dropdown">
+              <div class="dropdown-header">
+                  <span>Market depth</span>
+                  <i class="fas fa-chevron-down"></i>
+              </div>
+          </div>
+
+          <div class="form-row dropdown">
+              <div class="dropdown-header">
+                  <span>Order type</span>
+                  <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="order-type-options">
+                  <button class="option active">Market</button>
+                  <button class="option">Limit</button>
+                  <button class="option">SL Limit</button>
+                  <button class="option">SL Mkt</button>
+              </div>
+          </div>
+
+          <div class="form-row dropdown">
+              <div class="dropdown-header">
+                  <span>Additional settings</span>
+                  <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="additional-settings">
+                  <p>Add validity & disclosed quantity.</p>
+              </div>
+          </div>
+
+          <div class="estimated-charges">
+              <span>Estimated charges</span>
+          </div>
+
+          <button class="btn-place-order">Review sell order</button>
+      </div>
+  </aside>
   </div>
+
+
+  
+
+    
+
+
+
 
   <!-- TradingView Widget Script -->
   <script>
@@ -107,20 +411,25 @@
     // Simulating live price updates (in a real case, fetch data from API)
     function updateLivePrice() {
       let price = (Math.random() * (1600 - 1400) + 1400).toFixed(2); // Random price between 1400 - 1600
-      document.getElementById("livePrice").textContent = ₹${price};
+      document.getElementById("livePrice").textContent = `₹${price}`;
     }
     
     setInterval(updateLivePrice, 2000); // Update price every 2 seconds
 
     function buyStock() {
       let price = document.getElementById("livePrice").textContent;
-      alert(Buying at ${price});
+      alert(`Buying at ${price}`);
     }
 
     function sellStock() {
       let price = document.getElementById("livePrice").textContent;
-      alert(Selling at ${price});
+      alert(`Selling at ${price}`);
     }
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
 </body>
 </html>
+
+

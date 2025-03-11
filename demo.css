@@ -1,0 +1,612 @@
+:root {
+    --primary-color: #5c2d91;
+    --secondary-color: #f8f9fa;
+    --text-color: #333;
+    --border-color: #e0e0e0;
+    --positive-color: #26a69a;
+    --negative-color: #ef5350;
+    --button-color: #5c2d91;
+    --buy-color: #26a69a;
+    --sell-color: #ef5350;
+    --chart-bg: #fff;
+    --hover-color: #f5f5f5;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+      "Helvetica Neue", sans-serif;
+  }
+  
+  body {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-size: 14px;
+  }
+  
+  /* Header Styles */
+  .main-header {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .market-indices {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .index {
+    /* display: flex; */
+    /* align-items: center; */
+    gap: 8px;
+  }
+  
+  .value {
+    font-weight: bold;
+  }
+  
+  .change {
+    font-size: 12px;
+  }
+  
+  .positive {
+    color: var(--positive-color);
+  }
+  
+  .negative {
+    color: var(--negative-color);
+  }
+  
+  .main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 5px;
+    margin-left: 15px;
+  }
+  
+  .main-nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: flex;
+    /* align-items: center; */
+    gap: 5px;
+  }
+  
+  .main-nav a.active {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .user-actions {
+    display: flex;
+    gap: 10px;
+    margin-left: 350px;
+  }
+  
+  .user-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  
+  .user-actions button:hover {
+    background-color: var(--hover-color);
+  }
+  
+  /* Content Layout */
+  .content-wrapper {
+    display: grid;
+    grid-template-columns: 250px 1fr 300px;
+    height: calc(100vh - 60px);
+  }
+  
+  /* Watchlist Styles */
+  .watchlist {
+    border-right: 1px solid var(--border-color);
+    background-color: white;
+    overflow-y: auto;
+  }
+  
+  .watchlist-header {
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .tab {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .tab.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+  }
+  
+  .watchlist-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+  }
+  
+  .watchlist-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .stock-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 10px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+  }
+  
+  .stock-item:hover,
+  .stock-item.active {
+    background-color: var(--hover-color);
+  }
+  
+  .stock-name {
+    font-weight: bold;
+  }
+  
+  .stock-exchange {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .stock-price {
+    text-align: right;
+  }
+  
+  .price {
+    font-weight: bold;
+  }
+  
+  .change {
+    font-size: 12px;
+  }
+  
+  /* bootstrap */
+
+  .watchlist-items .stock-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    transition: background 0.3s;
+}
+
+.watchlist-items .stock-item:hover {
+    background-color: #f9f9f9;
+}
+
+.stock-info {
+    flex-grow: 1;
+}
+
+.stock-name {
+    font-weight: bold;
+}
+
+.stock-exchange {
+    font-size: 12px;
+    color: #666;
+}
+
+.stock-price {
+    text-align: right;
+}
+
+.stock-price .price {
+    font-weight: bold;
+}
+
+.stock-price .change {
+    font-size: 12px;
+}
+
+.change.positive {
+    color: #28a745;
+}
+
+.change.negative {
+    color: #dc3545;
+}
+
+/* Buy/Sell button container - hidden by default */
+.hover-actions {
+    position: absolute;
+    right: 10px;
+    display: none;
+    gap: 5px;
+}
+
+/* Show buttons on hover, hide price */
+.stock-item:hover .stock-price {
+    display: none;
+}
+
+.stock-item:hover .hover-actions {
+    display: flex;
+}
+
+.btn-buy, .btn-sell {
+    padding: 5px 10px;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.btn-buy {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-sell {
+    background-color: #dc3545;
+    color: white;
+}
+
+  /* Chart Container Styles */
+  .chart-container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--chart-bg);
+  }
+  
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .stock-search {
+    display: flex;
+    align-items: center;
+    background-color: var(--secondary-color);
+    padding: 5px 10px;
+    border-radius: 4px;
+    width: 200px;
+  }
+  
+  .stock-search input {
+    border: none;
+    background: none;
+    outline: none;
+    margin-left: 5px;
+    width: 100%;
+  }
+  
+  .timeframe-selector {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .timeframe-selector button {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .timeframe-selector button.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+  }
+  
+  .chart-tools,
+  .chart-actions {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .chart-tools button,
+  .chart-actions button {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .instant-order {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border-color: var(--primary-color) !important;
+  }
+  
+  .stock-info-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 12px;
+  }
+  
+  .stock-data {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .order-buttons {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .btn-sell,
+  .btn-buy {
+    padding: 5px 15px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    position: relative;
+  }
+  
+  .btn-sell {
+    background-color: var(--sell-color);
+  }
+  
+  .btn-buy {
+    background-color: var(--buy-color);
+  }
+  
+  .qty {
+    font-size: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 2px 5px;
+    border-radius: 10px;
+    margin-left: 5px;
+  }
+  
+  .chart {
+    flex: 1;
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .chart-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 1px solid var(--border-color);
+    font-size: 12px;
+  }
+  
+  .timeframe-tabs {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .timeframe-tabs button {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 3px 8px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  
+  .chart-time {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .chart-time button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Order Panel Styles */
+  .order-panel {
+    border-left: 1px solid var(--border-color);
+    background-color: white;
+    overflow-y: auto;
+  }
+  
+  .stock-header {
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .exchange-info,
+  .price-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+  }
+  
+  .order-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .order-tabs .tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .order-tabs .tab.active {
+    border-bottom: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: bold;
+  }
+  
+  .delivery-options {
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+  }
+  
+  .delivery-options .option {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: none;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+  }
+  
+  .delivery-options .option.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+  }
+  
+  .order-form {
+    padding: 15px;
+  }
+  
+  .form-row {
+    margin-bottom: 15px;
+  }
+  
+  .form-row label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .quantity-input,
+  .price-input {
+    display: flex;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .quantity-input input,
+  .price-input input {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    outline: none;
+  }
+  
+  .btn-increase {
+    background: none;
+    border: none;
+    border-left: 1px solid var(--border-color);
+    padding: 0 10px;
+    cursor: pointer;
+  }
+  
+  .price-input i {
+    padding: 8px;
+    color: #999;
+  }
+  
+  .dropdown {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .order-type-options {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    gap: 5px;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .order-type-options .option {
+    flex: 1 0 45%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: none;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+  }
+  
+  .order-type-options .option.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+  }
+  
+  .additional-settings {
+    padding: 10px;
+    border-top: 1px solid var(--border-color);
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .estimated-charges {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .btn-place-order {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  

@@ -1,0 +1,148 @@
+  /* Basic resets */
+  * {
+    margin: 0; 
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* TOP NAVIGATION BAR */
+  header {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    height: 50px;
+  }
+
+  .logo-area {
+    margin-right: 20px;
+    font-weight: bold;
+    color: #6a6a6a;
+    font-size: 16px;
+  }
+
+  .symbol-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .symbol-name {
+    font-weight: bold;
+    color: #333;
+  }
+
+  .symbol-description {
+    color: #666;
+    font-size: 14px;
+  }
+
+  .live-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #007700;
+  }
+
+  .buy-sell-buttons {
+    display: flex;
+    gap: 5px;
+  }
+
+  .buy-button, .sell-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .buy-button {
+    background-color: #28a745;
+    color: white;
+  }
+
+  .sell-button {
+    background-color: #dc3545;
+    color: white;
+  }
+
+  .buy-button:hover {
+    background-color: #218838;
+  }
+
+  .sell-button:hover {
+    background-color: #c82333;
+  }
+
+  /* MAIN CONTAINER */
+  .main-container {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }
+
+  /* LEFT SIDEBAR (WATCHLIST) */
+  .left-sidebar {
+    width: 250px;
+    background-color: #fff;
+    border-right: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .watchlist-header {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+    font-size: 15px;
+    color: #333;
+  }
+
+  .watchlist-list {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .watchlist-list ul {
+    list-style: none;
+  }
+
+  .watchlist-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #333;
+  }
+
+  .watchlist-list li:hover {
+    background-color: #f7f7f7;
+  }
+
+  .watchlist-list .price-change {
+    margin-left: 10px;
+    color: #007700;
+  }
+
+  /* CHART AREA */
+  .chart-area {
+    flex: 1;
+    position: relative;
+  }
+
+  #tradingviewChart {
+    width: 100%;
+    height: 100%;
+  }
